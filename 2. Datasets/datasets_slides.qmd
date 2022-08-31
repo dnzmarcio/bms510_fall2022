@@ -273,5 +273,47 @@ to identify an individual and that was created, used, or disclosed in the course
 
 ::::
 
+# R markdown / Quarto
+
+## R markdown / Quarto
+
+::: {style='fig-align: center; width: 80%; margin: auto'}
+![](figures/reproducibility_court.png)
+:::
+
+## R markdown / Quarto
+
+We won't have the opportunity to go into great depth outside of the basics in report generation, however you can learn more about the capabilities of R markdown from this book.
+
+::: {style='fig-align: center; width: 30%; margin: auto'}
+![](figures/rmarkdown-definitive-guide.png)
+:::
+
+::: aside
+-   <https://bookdown.org/yihui/rmarkdown/>
+:::
+
+## R markdown / Quarto
+
+::: {style='fig-align: center; width: 60%; margin: auto'}
+![](figures/rmarkdown-cheatsheet.PNG)
+:::
+
+::: aside
+-   <https://github.com/rstudio/cheatsheets/raw/main/rmarkdown-2.0.pdf>
+:::
+
+## R markdown / Quarto
+
+::: {style='fig-align: center; width: 60%; margin: auto'}
+![](figures/rmarkdown-gallery.PNG)
+:::
+
+::: aside
+-   <https://rmarkdown.rstudio.com/gallery.html>
+:::
+
+
+
 
 
