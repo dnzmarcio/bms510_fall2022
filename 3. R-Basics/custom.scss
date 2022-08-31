@@ -1,0 +1,17 @@
+/*-- scss:defaults --*/
+
+$theme-blue: #0000FF;
+
+// Code
+$code-block-font-size: 0.6em;
+
+/*-- scss:rules --*/
+
+
+.bold-highlight {
+  font-weight: bold;
+  color: $theme-blue;
+}
+
+
+
