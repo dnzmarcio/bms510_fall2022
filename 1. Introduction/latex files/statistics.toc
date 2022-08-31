@@ -1,4 +1,0 @@
-\babel@toc {english}{}
-\beamer@sectionintoc {1}{What is statistics?}{2}{0}{1}
-\beamer@subsectionintoc {1}{1}{History}{3}{0}{1}
-\beamer@subsectionintoc {1}{2}{Statistical Thinking}{12}{0}{1}
