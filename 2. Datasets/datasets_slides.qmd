@@ -286,7 +286,7 @@ format:
 
 ## R-Markdown / Quarto
 
--   R-Markdown / Quarto embodies the idea of 'literate programming' from **Donald Knuth**, where you should think of programs as 'works of literature'.
+-   R-Markdown / Quarto embodies the idea of 'literate programming' from computer scientist **Donald Knuth**, where you should think of programs as 'works of literature'.
 
 -   This idea is an effort that pushes to blend your literature (text) and your program (code) together, where we can read from top to bottom.
 
@@ -300,13 +300,13 @@ format:
 
     -   In this course we will be promoting the use of R-Markdown / Quarto
 
-    -   R Scripts are typically used when we don't need to incorporate in our code
+    -   R Scripts are typically used when we don't need to incorporate narrative text in our code
 
         -   e.g. we have a script (program) that performs a specific function like cleaning or processing our data
 
     -   R-Markdown / Quarto is typically used when we want to form a narrative about our code and results
 
-        -   e.g. We run a statistical test, and now we want to explain what it means and its implications
+        -   e.g. We run a statistical test, and now we want to explain what it means and its implications within the same document
 
 ## R-Markdown / Quarto
 
@@ -389,6 +389,16 @@ format:
 -   Everything inside the shaded section is called a 'code chunk'
 
 -   Everything inside this section is interpreted as R code
+
+## R-Markdown / Quarto
+
+![](images/paste-56EDC307.png){fig-align="center"}
+
+-   This is the **Render** button. This button will render the current document into an html output
+
+## R-Markdown / Quarto
+
+![](images/paste-9F44C65C.png){fig-align="center"}
 
 ## R-Markdown / Quarto
 
