@@ -425,9 +425,9 @@ We won't have the opportunity to go into great depth outside of the basics in re
 ## R-Markdown / Quarto
 
 ::: {style="fig-align: center; width: 60%; margin: auto"}
-![](figures/rmarkdown-gallery.PNG)
+![](images/paste-276BA362.png)
 :::
 
 ::: aside
--   <https://rmarkdown.rstudio.com/gallery.html>
+-   <https://quarto.org/docs/gallery/>
 :::
