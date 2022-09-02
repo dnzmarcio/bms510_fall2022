@@ -123,21 +123,21 @@ format:
 -   To make the interaction with other researchers more efficient;
 -   To make your statistical analysis to be reproducible.
 
-## UppSala Scandal
+<!-- ## UppSala Scandal -->
 
--   Lönnstedt, O.M. and Eklöv, P., 2016. Environmentally relevant concentrations of microplastic particles influence larval fish ecology. Science, 352(6290), pp.1213-1216.
--   Authors reported experiments showing that fish that ate tiny 'microplastics' grew more slowly and were more likely to be eaten by predators.
--   A group of researchers raised a complaint about the study that not all the data underlying the results were available.
--   The only computer containing the study's raw data was allegedly stolen and no backups existed on another machine or an online repository.
--   Uppsala University investigated those allegations last year and found no evidence of misconduct.
--   The paper was [retracted](http://science.sciencemag.org/content/356/6340/812.1) by the authors.
+<!-- -   Lönnstedt, O.M. and Eklöv, P., 2016. Environmentally relevant concentrations of microplastic particles influence larval fish ecology. Science, 352(6290), pp.1213-1216. -->
+<!-- -   Authors reported experiments showing that fish that ate tiny 'microplastics' grew more slowly and were more likely to be eaten by predators. -->
+<!-- -   A group of researchers raised a complaint about the study that not all the data underlying the results were available. -->
+<!-- -   The only computer containing the study's raw data was allegedly stolen and no backups existed on another machine or an online repository. -->
+<!-- -   Uppsala University investigated those allegations last year and found no evidence of misconduct. -->
+<!-- -   The paper was [retracted](http://science.sciencemag.org/content/356/6340/812.1) by the authors. -->
 
 ## Duke Scandal
 
--   Smoking and carcinoma of the lung. British medical journal. 1950 Sep 30;2(4682):739.
--   Mortality in relation to smoking: ten years' observations of British doctors. British medical journal. 1964 May 30;1(5395):1399.
+<!-- -   Smoking and carcinoma of the lung. British medical journal. 1950 Sep 30;2(4682):739. -->
+<!-- -   Mortality in relation to smoking: ten years' observations of British doctors. British medical journal. 1964 May 30;1(5395):1399. -->
 
-## Personalized Medicine
+<!-- ## Personalized Medicine -->
 
 -   Aim: Establish whether a patient's genetic make-up can be used to identify therapeutic regimes that would provide better responses.
 -   Potti A, Dressman HK, Bild A, Riedel RF, Chan G, Sayer R, Cragun J, Cottrill H, Kelley MJ, Petersen R, Harpole D. Genomic signatures to guide the use of chemotherapeutics. Nature medicine. 2006 Nov 1;12(11):1294-300.
@@ -161,9 +161,9 @@ format:
 -   The trial was suspended by Duke;
 -   The final Duke's report was that the data had been subject to modification carried out in a non-random way.
 
-## Reproducible vs Replicable
+<!-- ## Reproducible vs Replicable -->
 
-![Patil P, Peng RD, Leek JT. A visual tool for defining reproducibility and replicability. Nature human behaviour. 2019 Jul;3(7):650-2.](figures/reproducible_replicable.png){widtht="50%"}
+<!-- ![Patil P, Peng RD, Leek JT. A visual tool for defining reproducibility and replicability. Nature human behaviour. 2019 Jul;3(7):650-2.](figures/reproducible_replicable.png){widtht="50%"} -->
 
 # Data Policies
 
