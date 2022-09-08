@@ -1,0 +1,220 @@
+---
+title: "R - Programming with the Tidyverse"
+format: 
+  html:
+    code-link: true
+    toc: true
+    number-sections: true
+    code-overflow: wrap
+date: today
+self-contained: true
+author: 
+  - 'Michael Luu'
+  - 'Marcio Diniz'
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(readxl)
+```
+
+# Installing the 'tidyverse' package
+
+Before we have access to the 'tidyverse' functions that was mentioned - we will first need to install the package using the `install.packages()` function. This is a generic function that you can use to install **ANY** packages you learn about in the future that is part of CRAN. You can install any package by adding the name of the package between quotes, within the parantheses. e.g. 'tidyverse'
+
+```{verbatim}
+install.packages('tidyverse')
+install.packages('janitor')
+install.packages('readxl')
+```
+
+# Loading packages
+
+Now that the tidyverse packages have been installed into R, you will need to load the package to get access to the function. You won't have access to any of the functions until you load the package. There are 2 other packages we will load to help faciliate our analysis.
+
+```{verbatim}
+library(tidyverse)
+library(janitor)
+library(readxl)
+```
+
+# Case study with the sepsis data
+## Reading in the data
+```{r}
+
+## reading in the dataset using the read_excel() function from the readxl package
+
+df <- read_excel('data/sepsis_wide.xlsx', na = 'NA')
+
+## here we are using the janitor package to help us clean the variable names of the data
+df <- clean_names(df)
+
+```
+
+## Checking variable data types 
+
+Obtaining a `glimpse()` of the data frame, this allows us to have a quick 'glimpse' or look of the data we just imported
+
+```{r}
+glimpse(df)
+```
+
+## Initial pre-processing
+
+We can see that treat, race, and death are incorrectly coded as 'dbl', we would like to change them into factors using the `factors()` function. Since we are replacing the previous values with a new one, we need to use it in conjunction with the mutate function to create a new variable
+
+```{r}
+
+df <- mutate(df, treat = factor(
+  treat,
+  levels = c(0, 1),
+  labels = c('Control', 'Ibuprofenol')
+))
+
+df <- mutate(df, death = factor(
+  death,
+  levels = c(0, 1),
+  labels = c('Alive', 'Died')
+))
+
+df <- mutate(df, race = factor(
+  race,
+  levels = c(0, 1, 2),
+  labels = c('White', 'African American', 'Hispanic')
+))
+
+## obtain a new glimpse of the data to confirm the variables contain the correct 'typing'
+glimpse(df)
+```
+
+## Converting the temperature from F to C
+```{r}
+
+## we can write the formula to convert a single temp from F to C
+mutate(df, temp0 = (temp0 - 32) * 5/9)
+
+## alternatively we can write our own function to do this
+fare_to_cel <- function(x) {
+  (x - 32) * 5/9
+}
+
+## and then apply the function to the selected variables using across() within the mutate function use ?across to get more information on how to use this function the below three methods all produce the same results
+
+df %>%
+  mutate(across(
+    c(
+      "temp0",
+      "temp1",
+      "temp2",
+      "temp3",
+      "temp4",
+      "temp5",
+      "temp6",
+      "temp7",
+      "temp8",
+      "temp9",
+      "temp10",
+      "temp11",
+      "temp12",
+      "temp13",
+      "temp14",
+      "temp15"
+    ),
+    fare_to_cel
+  ))
+
+df %>% mutate(across(c(6:21), fare_to_cel))
+
+df %>% mutate(across(c(temp0:temp15), fare_to_cel))
+
+## if we are content with the changes, we can save and replace our original dataframe with the changes
+
+df <- df %>% mutate(across(c(temp0:temp15), fare_to_cel))
+
+```
+
+## Transforming from wide to long and back
+
+We can use the `pivot_longer()` and the `pivot_wider()` function to transpose our data between the two data structure. The `pivot_longer()` function will transpose a wide data frame to a long data frame. The `pivot_wider()` function will allow for the opposite, a long dataframe to a wide dataframe.
+
+```{r}
+## here we are creating a new dataframe called 'long'
+long <- df %>% pivot_longer(., cols = temp0:temp15, names_to = 'name', values_to = 'value')
+long
+
+## here we are creating a new dataframe called 'wide' by converting the long dataframe back to wide format they are both valid formats we can work with in R
+
+wide <- long %>% pivot_wider(., names_from = 'name', values_from = 'value')
+wide
+```
+
+## Extracting specific observations
+```{r}
+
+## to extract specific observations we can use the filter() function, and state a criteria. Here we are extracting only patients in the Control group
+df %>% filter(., treat == 'Control')
+
+## here we are extracting white control patients
+df %>% filter(., treat == 'Control' & race == 'White')
+
+## here we are extracting white control patients who died
+df %>% filter(., treat == 'Control' & race == 'White' & death == 'Died')
+
+## here we are extracting white control patients with apache score greater than 10 or who died
+df %>% filter(., (treat == 'Control' & race == 'White' ) & (apache > 10 | death == 'Died'))
+```
+
+## Selecting specific columns or variables
+```{r}
+## perhaps we wanted to extract a dataframe that only contains id, treat, race, apache, and death
+df %>% select(., id, treat, race, apache, death)
+
+## perhaps we wanted to extract only the id and the temp variables
+df %>% select(., id, temp0:temp15)
+
+## perhaps we wanted to extract all the variables except outcome e.g. death
+df %>% select(., -death)
+
+## we can also use a numerical indicator of the column number to select a range of columns, e.g the first 5 columns
+df %>% select(., 1:5)
+```
+
+## Summarizing data with dplyr
+```{r}
+## lets taking a simple count of the dataframe
+df %>% summarise(., n = n())
+
+## the summzarise function becomes very powerful when you use it in conjuntion with the group_by() function lets take the count of control and ibuprofenol patients in our dataset
+df %>%
+  group_by(treat) %>%
+  summarise(., n = n(), .groups = 'drop')
+
+## we can expand this further by including more factors in group_by() here lets take the count of people who died among the different arms
+df %>%
+  group_by(., treat, death) %>%
+  summarise(., n = n(), .groups = 'drop')
+
+## we can also further expand this by adding more functions into the summarise function
+df %>%
+  group_by(., treat, death) %>%
+  summarise(
+    .,
+    mean_temp0 = mean(temp0, na.rm = T),
+    sd_temp0 = sd(temp0, na.rm = T),
+    .groups = 'drop'
+  )
+
+## here we are using a cousin of the summarise function called summarise_at() which allows us to easily summarise many columns at once, with a list of functions
+
+df %>%
+  group_by(., treat, death) %>%
+  summarise(across(c(temp0:temp15), mean, na.rm = T),
+            .groups = 'drop')
+
+```
