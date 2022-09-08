@@ -11,7 +11,6 @@ format:
     self-contained: true
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
@@ -22,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 :::: {.columns}
 ::: {.column width="40%"}
-![Coding in R is like playing with Lego](figures/lego.png){width=70%}
+![Coding in R is like playing with Lego](figures/lego.png){width="70%"}
 :::
 
 ::: {.column width="60%"}
@@ -36,10 +35,10 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 :::: {.columns}
 ::: {.column width="40%"}
-![There are different types of objects](figures/lego_color.jpg){width=70%}
+![There are different types of objects](figures/lego_color.jpg){width="70%"}
 :::
-::: {.column width="60%"}
 
+::: {.column width="60%"}
 - Objects can be classified in three classes of content: numeric, character, logical;
     - Numeric objects contain numbers such that they can be double (dbl) or integers (int);
     - Character (chr) objects contain strings, i.e., text between quotes;
@@ -65,21 +64,21 @@ favorite_food
 enjoy_cold
 ```
 :::
+
 ::: {.column width="60%"}
-- In order to store, we use the assignment operator [<-]{.bold-highlight} or [=]{.bold-highlight}.
-- Comments are preceded with [#]{.bold-highlight};
+- In order to store, we use the assignment operator [\<-]{.bold-highlight} or [=]{.bold-highlight}.
+- Comments are preceded with [\#]{.bold-highlight};
 - Objects can be accessed based on their names;
 - Objects are listed in the Environment tab.
 :::
 ::::
 
-
-
-
 ## Good practices for coding in R
+
 - It suggests to avoid [.]{.bold-highlight} on names of objects and [=]{.bold-highlight} as assignment operator:
 
 . . .
+
 ```{r}
 #| code-block-font-size: "0.5em"
 
@@ -88,29 +87,31 @@ dog_lover <- dog.lover
 rm(dog.lover)
 dog_lover
 ```
-- The **function** [rm]{.bold-highlight} removes objects from the **Environment** tab.
 
-
-## Good practices for coding in R
-![Describe and comment your code for your future self!](figures/future_self.png){height=70%}
+-   The **function** [rm]{.bold-highlight} removes objects from the **Environment** tab.
 
 ## Good practices for coding in R
-![Describe and comment your code for your colleagues!](figures/comments.png){width=70%}
+
+![Describe and comment your code for your future self!](figures/future_self.png){height="70%"}
+
+## Good practices for coding in R
+
+![Describe and comment your code for your colleagues!](figures/comments.png){width="70%"}
 
 ## Vectors
+
 :::: {.columns}
 ::: {.column width="40%"}
-![Vectors are stacked boxes with different lengths, but of the same type of objects](figures/vectors.png){width=40%}
+![Vectors](figures/vectors.png){width="40%"}
 :::
+
 ::: {.column width="60%"}
-- We can combine objects using the **function** [c]{
-.bold-highlight};
-- We calculate the length of a vector using the **function** [length]{
-.bold-highlight}.
+- Vectors are stacked objects with different lengths, but the same type of objects
+- We can combine objects using the function [c]{.bold-highlight};
+- We calculate the length of a vector using the function [length]{.bold-highlight}.
 :::
 ::::
 
-## Creating vectors
 - Let's do it in R:
 
 . . .
@@ -120,6 +121,7 @@ dwo_icecream <- c(5, 10, 8, 9, 3) # days without ice-cream
 dwo_icecream
 length(dwo_icecream)
 ```
+
 - All previous objects are also vectors, but with length 1:
 
 . . .
@@ -129,7 +131,8 @@ length(favorite_food)
 ```
 
 ## Combining vectors
-- If we combine different types of vectors, they will be converted following the hierarchy: character > numeric > logical:
+
+- If we combine different types of vectors, they will be converted following the hierarchy: character \> numeric \> logical:
 
 . . .
 
@@ -140,7 +143,7 @@ c(dog_lover, dwo_icecream)  # TRUE is converted into 1
 c(enjoy_cold, dwo_icecream)  # FALSE is converted into 0
 ```
 
-- Class of objects can be checked using the function [class]{.bold-highlight}. 
+- Class of objects can be checked using the function [class]{.bold-highlight}.
 
 . . .
 
@@ -151,6 +154,7 @@ class(favorite_food)
 ```
 
 ## Other functions to create vectors
+
 - Some numeric vectors can also be created with easier approaches than use the function [c]{.bold-highlight}:
 
 - Using the function [rep]{.bold-highlight}:
@@ -178,20 +182,24 @@ z
 ```
 
 ## Factors
+
 - Factors are special vectors that assume only pre-defined values defined using function [factor]{.bold-highlight}:
 
 - It can be created based on a character vector:
 
 . . .
+
 ```{r}
 dog_lover <- c("yes", "no", "yes", "yes", "yes")
-dog_lover <- factor(dog_lover, levels = c("no", "yes"))
+dog_lover <- factor(dog_lover, 
+                    levels = c("no", "yes"))
 dog_lover
 ```
 
-- Or a numeric vector:
+-   Or a numeric vector:
 
 . . .
+
 ```{r}
 dog_lover <- c(1, 0, 1, 1, 1)
 dog_lover <- factor(dog_lover,
@@ -201,9 +209,11 @@ dog_lover
 ```
 
 ## Factors
+
 - Shortcut to transform a character vector into a factor.
 
 . . .
+
 ```{r}
 dog_lover <- c("yes", "no", "yes", "yes", "yes")
 dog_lover <- as.factor(dog_lover)
