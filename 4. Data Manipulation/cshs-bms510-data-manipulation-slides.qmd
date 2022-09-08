@@ -1,0 +1,395 @@
+---
+format: 
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    transition: fade
+    footer: Data manipulation in R
+    menu: true
+    overview: true
+    code-fold: true
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+self-contained: true
+---
+
+```{r, include=F}
+library(tidyverse)
+```
+
+# [Data manipulation in R]{.r-fit-text}
+
+[Introduction to the tidyverse: dplyr & tidyr]{.red}
+
+Michael Luu, MPH \| Marcio Diniz, PhD
+
+`r format(Sys.Date(), '%B %d, %Y')`
+
+# Workflow in Statistical Analysis
+
+## 
+
+```{r, out.width='100%', fig.align='center'}
+
+knitr::include_graphics("figures/data-science-explore.png")
+```
+
+# What is 'tidy' data?
+
+## What is 'tidy' data? {.smaller}
+
+```{r, out.width='100%', fig.align='center', fig.width=10}
+
+knitr::include_graphics("figures/tidy_data.png")
+```
+
+Tidy data is a standardized structure of how data should be stored
+
+-   Every column should consist of a variable with a single type of data e.g. logical, dbl, integer, character, etc.
+-   Every row should consist of a single observation.
+-   Every cell should consist of a single value type.
+
+## What is 'tidy' data?
+
+```{r, echo = F, out.width='75%'}
+knitr::include_graphics("figures/tidydata_3.jpg")
+```
+
+## What is 'tidy' data?
+
+```{r, echo = F, out.width='75%'}
+knitr::include_graphics("figures/tidydata_4.jpg")
+```
+
+## What is 'tidy' data?
+
+```{r}
+data(iris)
+
+iris <- as_tibble(iris) 
+
+iris
+```
+
+# tidyverse
+
+## Introduction to the tidyverse
+
+```{r, echo = F, out.width='60%', fig.align='center'}
+
+knitr::include_graphics("figures/tidyverse_logo.PNG")
+```
+
+::: notes
+-   Talk about the analogy of packages as apps that's available on cran
+:::
+
+## What is the tidyverse?
+
+A collection of R packages that are used to facilitate data exploration, visualization, and 'tidying' of your data.
+
+::: incremental
+-   **dplyr** - manipulation of data
+-   **ggplot2** - visualization of data
+-   **readr** - importing data into R
+-   **tibble** - creation of dataframes in R
+-   **tidyr** - 'tidying' or 'cleaning' your data
+-   **purrr** - functional or iterative programming in R
+:::
+
+## What is a function ? {.smaller}
+
+```{r, echo = F, out.width='75%', fig.align='center'}
+knitr::include_graphics("figures/function.PNG")
+```
+
+-   A function has a 'name'
+-   A function has 'inputs'
+-   A function has an 'output'
+-   A function performs an 'action'
+-   A function is enclosed by parentheses after the name, e.g. `f()`
+
+In the above example, the function 'name' is `f()`, the function has 1 input `x`, and the function has 1 output `x^2`.
+
+# dplyr and tidyr
+
+## dplyr {.smaller}
+
+These are the **six** main `dplyr` functions that we will use to perform the vast majority of the necessary data manipulations in R and will be the focus
+
+::: incremental
+-   **`mutate()`** adds new variables that are functions of existing variables
+-   **`select()`** subset variables based on their names.
+-   **`filter()`** subset cases based on their values.
+-   **`summarise()`** reduces multiple values down to a single summary.
+-   **`arrange()`** changes the ordering of the rows.
+-   **`glimpse()`** obtain a 'glimpse' of the dataframe.
+:::
+
+::: aside
+-   https://dplyr.tidyverse.org/
+:::
+
+## tidyr {.smaller}
+
+We will also focus on **two** main `tidyr` functions
+
+::: incremental
+-   **`pivot_longer()`** transposition of data into the long format
+-   **`pivot_wider()`** transposition of data into the wider format
+:::
+
+::: aside
+-   https://tidyr.tidyverse.org/
+:::
+
+## Functions in R programming {.smaller}
+
+::: columns
+::: {.column width="50%"}
+-   Similar to functions in mathematics, all functions have a name, some number of inputs, and an output
+
+-   In the tidyverse class of functions, the first 'input' is always a class data.frame
+
+-   In the tidyverse class of functions, the output is commonly a class data.frame
+
+    -   This largely applies to the tidyverse class of functions only
+    -   The output can technically be anything
+:::
+
+::: {.column width="50%"}
+```{r, echo = F, out.width = '100%'}
+knitr::include_graphics("figures/function_mutate_description.PNG")
+```
+:::
+:::
+
+## %\>% (Pipe)
+
+Another very important function is the `%>%` (pipe) operator.
+
+::: incremental
+-   `%>%` allows us to chain multiple functions together.
+-   `x %>% f()` is interpreted as `f(x)`
+-   `x %>% f(y)` is interpretted as `f(x, y)`
+-   `x %>% f() %>% g() %>% h()` is equivalent to `h(g(f(x)))`
+:::
+
+## %\>% (Pipe) {.smaller}
+
+For example, the pipe operator will allow us to chain together multiple functions and operations in a systematic and 'readable' manner
+
+`iris %>% filter() %>% mutate() %>% summarise()`
+
+As opposed to the alternative without using the pipe seen below
+
+`summarise(mutate(filter(iris, ...), ...), ...)`
+
+The input of each tidyverse function is a data.frame, and the output of each of these tidyverse function is a data.frame
+
+The pipe operator makes our code significantly more 'readable'
+
+## Help
+
+```{r, out.width='70%', fig.align='center'}
+knitr::include_graphics("gifs/homer_simpson_flipping_pages.gif")
+```
+
+## Help {.smaller}
+
+Type a question mark before the name of the function to invoke the help file for that function.
+
+```{r, echo = T, eval = F}
+?mutate
+```
+
+```{r, echo = F, out.width='100%', fig.align='center'}
+knitr::include_graphics("figures/help_mutate.PNG")
+```
+
+## Cheat Sheet {.smaller}
+
+Highly recommend printing these 'cheat cheets', and have them available for reference.
+
+::: columns
+::: {.column width="50%"}
+```{r, echo = F, fig.show='asis', out.width = '90%'}
+knitr::include_graphics(c("figures/dplyr-cheatsheet.PNG"))
+
+```
+:::
+
+::: {.column width="50%"}
+```{r, echo = F, fig.show='asis', out.width = '95%'}
+knitr::include_graphics(c("figures/tidyr-cheatsheet.PNG"))
+
+```
+:::
+:::
+
+::: aside
+-   https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf
+
+-   https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf
+:::
+
+# Example
+
+## Example
+
+Revisiting the built in R dataset `iris`
+
+```{r}
+iris
+```
+
+## glimpse()
+
+`glimpse()` provides a 'glimpse' of 'what' is in the dataframe
+
+```{r}
+#| echo: true
+iris %>% glimpse(., width = 75)
+```
+
+## mutate()
+
+Create new variables as functions of other variables `mutate()`
+
+![](figures/mutate_function.PNG)
+
+```{r}
+#| echo: true
+iris %>% mutate(., ratio = Petal.Length / Petal.Width)
+```
+
+## select()
+
+Select variables by their names `select()`
+
+![](figures/select_function.PNG)
+
+```{r}
+#| echo: true
+iris %>% select(., Petal.Length, Petal.Width, Species)
+```
+
+## filter()
+
+Select observations by their values `filter()`
+
+![](figures/filter_function.PNG)
+
+```{r}
+#| echo: true
+iris %>% filter(., Sepal.Length >= 5.0)
+```
+
+## summarise()
+
+Collapse values down to a summary `summarise()`
+
+![](figures/summary_function.PNG)
+
+```{r}
+#| echo: true
+iris %>% summarise(
+  .,
+  mean_sepal_length = mean(Sepal.Length)
+)
+```
+
+## summarise()
+
+`group_by()` is another dplyr function that is commonly used with `summarise()`. It allows us to apply the function `summarise()` within a categorical variable or a 'factor'
+
+```{r}
+#| echo: true
+iris %>%
+  group_by(Species) %>%
+  summarise(., mean_sepal_length = mean(Sepal.Length))
+```
+
+## arrange()
+
+Reordering rows `arrange()`
+
+![](figures/arrange_function.PNG)
+
+```{r}
+#| echo: true
+iris %>% arrange(., Sepal.Length)
+```
+
+## arrange()
+
+```{r}
+#| echo: true
+iris %>% arrange(., desc(Sepal.Length))
+```
+
+## Transposition
+
+The same data can be stored in both a 'long' and 'wide' representation
+
+```{r, echo = F, out.width='60%', fig.align='center'}
+knitr::include_graphics("figures/original-dfs-tidy.png")
+```
+
+## Transposition
+
+![](figures/tidyr-longer-wider.gif){fig-align="center"}
+
+## Transposition
+
+Since the original dataset does not include a unique identifier for each observation, the below code is to simply add a identifier using the rowname called 'index'.
+
+```{r}
+#| echo: true
+iris <- iris %>% rownames_to_column(var = "index")
+
+iris
+```
+
+## pivot_longer()
+
+```{r}
+#| echo: true
+long <- pivot_longer(
+  data = iris,
+  cols = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width),
+  names_to = "name",
+  values_to = "value"
+)
+
+long
+```
+
+## pivot_wider()
+
+```{r}
+#| echo: true
+wide <- pivot_wider(
+  data = long,
+  names_from = "name",
+  values_from = "value"
+)
+
+wide
+```
+
+# Debugging
+
+## Debugging
+
+::: {style="fig-align: center;"}
+![](figures/debugging.jpg)
+:::
+
+## Debugging
+
+Errors and bugs in your code [will]{.red} happen. Below are a few simple tips that will hopefully aid your debugging process.
+
+-   Systematically run your code line by line to identify the specific piece of your code that is causing the error.
+-   Identify the error message in your R console and Google it.
+-   Stack Overflow is an online Q/A website where you can ask your programming questions.
+-   Trial and Error - modify the piece of code, and run it again.

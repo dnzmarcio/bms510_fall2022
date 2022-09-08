@@ -1,0 +1,38 @@
+/*-- scss:defaults --*/
+$theme-white: #FFFFFF;
+$theme-dark-blue: #011627;
+$theme-teal: #2EC4B6;
+$theme-red: #860E1C;
+$theme-orange: #FF9F1C;
+
+$body-bg: $theme-white;
+$body-color: $theme-dark-blue;
+$link-color: $theme-dark-blue;
+$presentation-heading-color: lighten($theme-dark-blue, 15%);
+$text-muted: $theme-red;
+$presentation-title-slide-text-align: left;
+$code-color: $theme-red;
+$code-block-font-size: 0.45em;
+
+/*-- scss:rules --*/
+
+.reveal .slide a {
+  text-decoration: underline;
+}
+
+.reveal .title-inverse {
+  background-color: $theme-dark-blue;
+}
+
+.orange {
+  color: $theme-orange;
+}
+
+.red {
+  color: $theme-red;
+}
+
+.reveal .slide p.author {
+  font-size: 10em;
+  
+}
