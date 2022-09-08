@@ -1,0 +1,477 @@
+---
+title: "R Basics"
+author: "Marcio A Diniz, PhD"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+institute: "Cedars Sinai Medical Center"
+format: 
+  html:
+    self-contained: true
+    toc: true
+    theme: custom.scss
+---
+
+# Introduction
+
+## First steps in R
+
+:::: {.columns}
+::: {.column width="40%"}
+![Coding in R is like playing with Lego](figures/lego.png){width="70%"}
+:::
+
+::: {.column width="60%"}
+R is an object-oriented language. Objects can be interpreted as boxes that we can use to store different classes of content. These objects always have a name that can be interpreted a label for boxes. Object names or labels should always start with letters and it also can contain numbers, but only a few special characters: underscore or period.
+:::
+::::
+
+## Types of objects
+
+:::: {.columns}
+::: {.column width="40%"}
+![There are different types of objects](figures/lego_color.jpg){width="70%"}
+:::
+
+::: {.column width="60%"}
+Objects in R can be classified in three classes of content:
+    - Numeric objects contain numbers such that they can be double (dbl) or integers (int);
+    - Character (chr) objects contain strings, i.e., text between quotes;
+        - If a character object contains only a pre-defined set of values, then it is considered a factor (fct).
+    - Logical objects (lgl) contain logical statements, i.e., `r TRUE` or `r FALSE`.
+:::
+::::
+
+Let's code our first objects. In order to store content to an object, we use the assignment operator [\<-]{.bold-highlight} or [=]{.bold-highlight}. 
+
+```{r}
+# Who is it?
+dwo_icecream <- 11 # days without icecream
+favorite_food <- "risotto"
+dog.lover = TRUE
+enjoy_cold <- FALSE
+```
+
+Objects can be accessed based on their names:
+
+```{r}
+dwo_icecream
+favorite_food
+enjoy_cold
+```
+
+We can see these objects are listed in the Environment tab.
+
+## Good practices for coding in R
+
+![Describe and comment your code for your future self!](figures/future_self.png){height="70%"}
+
+
+![Describe and comment your code for your colleagues!](figures/comments.png){width="70%"}
+
+Good practices for coding in R suggest to avoid [.]{.bold-highlight} on names of objects and [=]{.bold-highlight} as assignment operator. Therefore, we can rename one of the
+objects we have just created to follow this convention:
+
+```{r}
+dog_lover <- dog.lover
+```
+
+Now, the function [rm]{.bold-highlight} removes objects from the **Environment** tab.
+```{r}
+rm(dog.lover)
+dog_lover
+```
+
+
+## Vectors
+
+:::: {.columns}
+::: {.column width="40%"}
+![Vectors](figures/vectors.png){width="40%"}
+:::
+
+::: {.column width="60%"}
+Vectors are stacked objects with different lengths, but the same type of objects. 
+:::
+::::
+
+We can combine objects using the function [c]{.bold-highlight}.
+
+```{r}
+dwo_icecream <- c(5, 10, 8, 9, 3) # days without ice-cream
+dwo_icecream
+
+pushups <- c(1, 10, 0, 30, 25)
+pushups
+```
+
+We can also calculate the length of a vector using the function [length]{.bold-highlight}.
+```{r}
+length(dwo_icecream)
+```
+
+
+All previous objects are also vectors, but with length 1:
+
+```{r}
+length(favorite_food)
+```
+
+If we combine different types of vectors, they will be converted following the hierarchy: character \> numeric \> logical:
+
+
+```{r}
+# coerced all objects as characters
+c(favorite_food, dog_lover, enjoy_cold, dwo_icecream)
+c(dog_lover, dwo_icecream)  # TRUE is converted into 1
+c(enjoy_cold, dwo_icecream)  # FALSE is converted into 0
+```
+
+We can check the class of objects using the function [class]{.bold-highlight}.
+
+```{r}
+class(dwo_icecream)
+class(dog_lover)
+class(favorite_food)
+```
+
+Some numeric vectors can also be created with easier approaches than use the function [c]{.bold-highlight}:
+
+- Using the function [rep]{.bold-highlight}:
+
+```{r}
+x <- c(1, 1, 1, 1, 1)
+x
+y <- rep(1, 5)
+y
+```
+
+- Using the function [seq]{.bold-highlight}:
+
+```{r}
+x <- c(1, 2, 3, 4, 5)
+x
+y <- 1:5
+y
+z <- seq(1, 5, by = 1)
+z
+```
+
+## Factors
+
+Factors are special vectors that assume only pre-defined values defined using function [factor]{.bold-highlight}:
+
+- It can be created based on a character vector:
+
+```{r}
+dog_lover <- c("yes", "no", "yes", "yes", "yes")
+dog_lover <- factor(dog_lover, 
+                    levels = c("no", "yes"))
+dog_lover
+```
+
+- Or a numeric vector:
+
+```{r}
+dog_lover <- c(1, 0, 1, 1, 1)
+dog_lover <- factor(dog_lover,
+                    levels = c(0, 1),
+                    labels = c("no", "yes"))
+dog_lover
+```
+
+We can use easily transform a character vector into a factor.
+
+```{r}
+dog_lover <- c("yes", "no", "yes", "yes", "yes")
+dog_lover <- as.factor(dog_lover)
+dog_lover
+```
+
+It is important to notice that factors have ordered levels:
+
+```{r}
+dog_lover
+levels(dog_lover)
+nlevels(dog_lover)
+```
+
+## Matrices
+
+:::: {.columns}
+::: {.column width="40%"}
+![a matrix](figures/matrix.png){width="40%"}
+:::
+
+::: {.column width="60%"}
+- Matrix is a collection of vectors of the same type and length organized in a two-dimensional array;
+- A matrix has n rows and p columns.
+:::
+::::
+
+- Vectors can be bounded into two-dimensional arrays using the function [cbind]{.bold-highlight}:
+
+```{r}
+m <- cbind(dwo_icecream, pushups)
+m
+```
+
+- The class of two-dimensional arrays generated by cbind is matrix:
+
+```{r}
+class(m)
+```
+
+When we bind vectors of different classes, we 
+
+```{r}
+names <- c("m", "n", "p", "b", "t")
+m <- cbind(names, dog_lover, 
+           dwo_icecream, pushups)
+```
+
+. . .
+
+```{r}
+m
+```
+
+- Matrices are not appropriate to store a dataset.
+
+## Data frames
+
+:::: {.columns}
+::: {.column width="30%"}
+![a data frame](figures/dataframe.png){width="80%"}
+:::
+
+::: {.column width="70%"}
+- A data frame is a collection of vectors of the same/different types but of the same length organized in a two-dimensional array;
+- A data frame has n rows and p columns.
+:::
+::::
+
+- Data frames are created with the function [data.frame]{.bold-highlight}:
+
+```{r}
+df <- data.frame(names, dog_lover,
+                 dwo_icecream, pushups)
+df
+class(df)
+```
+
+# Subsetting
+
+## Vectors
+
+:::: {.columns}
+::: {.column width="30%"}
+![positions of a vector](figures/vector_position.png){width="80%"}
+:::
+
+::: {.column width="70%"}
+Subsetting a vector allows us to access each component of the vector. Components of a vector can be accessed using the operator [\[position\]]{.bold-highlight}.
+:::
+::::
+
+```{r}
+dwo_icecream
+dwo_icecream[1]
+dwo_icecream[c(1, 5)]
+```
+
+## Matrices
+
+:::: {.columns}
+::: {.column width="30%"}
+![positions of a matrix](figures/matrix_position.png){width="80%"}
+:::
+
+::: {.column width="70%"}
+Subsseting a matrix is quite similar to subset vector, except that the position of a component of a matrix is two-dimensional: [\[position row, position column\]]{.bold-highlight}.
+:::
+::::
+
+We can access a specific component, a row and a column in a matrix:
+
+```{r}
+# a specific component
+m[1, 1]
+# a row
+m[5, ] 
+# a column
+m[, 4]
+```
+
+## Data frames
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+![positions of a data frame](figures/dataframe_position.png){width=60%}
+
+:::
+
+::: {.column width="70%"}
+Subsetting a data frame follows the same idea of subsetting a matrix. In addition, columns can be accessed be their names using the operator [$]{.bold-highlight}.
+:::
+::::
+
+We can access a specific component, a row and a column in a data frame:
+
+```{r}
+df$names[5]
+df[5, 1]
+df$names
+df[, 1]
+df[5, ]
+```
+
+# Logical statements
+
+## Object classes
+
+Logical statements can help us to check the class of objects:
+
+```{r}
+is.numeric(dwo_icecream)
+
+is.logical(dwo_icecream)
+
+is.character(dwo_icecream)
+
+is.factor(dog_lover)
+```
+
+We can check conditions regarding the content of objects:
+
+- Are these objects equal?
+
+```{r}
+dog_lover == "yes"
+```
+
+- Are these objects different?
+  
+```{r}
+dog_lover != "yes"
+```
+
+- Is this object greater (less) than 35?
+
+```{r}
+dwo_icecream > 7 # for less, use <
+```
+
+- Is this object greater (less) or equal than 35?
+
+```{r}
+dwo_icecream >= 7 # for less or equal, use <=
+```
+
+Moreover, we can combine these conditions producing complex logical statements:
+  
+- AND
+```{r}
+dwo_icecream > 7 & dog_lover == "yes"
+```
+- OR
+```{r}
+dwo_icecream > 7 | dog_lover == "no"
+```
+
+# Functions
+
+## What is a function?
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+![The function f takes objects from in X and transform them into objects in Y](figures/function.png){width=50%}
+
+:::
+
+::: {.column width="40%"}
+
+A function takes inputs, make operations and gives back outputs. Functions in R are organized in libraries. Every function has a documentation that can be accessed with the operator [?]{.bold-highlighted}.
+
+:::
+:::: 
+
+First, we can access the documentation of some of these functions:
+
+```{r}
+?length
+?c
+```
+
+In the tab **Help**, we can find more details of the function, including examples.
+
+## Creating our own function
+
+We can create our own functions. For example, we can create a function to convert temperature in Fahrenheit to Celsius.
+
+How would we do this conversion manually?
+
+```{r}
+
+# minimum temperature
+temp_f <- 38
+temp_c <- (temp_f - 32)*(5/9)
+temp_c
+
+# range of temperatures
+temp_f <- c(38, 105)
+temp_c <- (temp_f - 32)*(5/9)
+temp_c
+```
+
+How about with a function?
+
+```{r}
+temp_f_c <- function(temp_f){
+
+  temp_c <- (temp_f - 32)*(5/9)
+
+  return(temp_c)
+}
+
+temp_f_c(38)
+
+temp_f_c(105)
+
+temp_f_c(c(38, 105))
+```
+
+# For loops
+
+How can we repeat tasks or perform them sequentially?
+
+```{r}
+i <- 1
+i
+i <- i + 1
+i
+i <- i + 1
+i
+```
+
+A for loop replaces repeated code:
+
+```{r}
+for (i in 1:3){
+  print(i)
+}
+```
+
+such that we can use for loops to control the flow of other objects:
+
+```{r}
+x <- rep(NA, 3)
+
+for (i in 1:3){
+  x[i] <- i
+}
+x
+
+```
