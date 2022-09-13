@@ -185,6 +185,21 @@ df %>% select(., -death)
 df %>% select(., 1:5)
 ```
 
+### Selecting using helper functions
+```{r}
+## let's select variables using starts_with() helper function
+df %>% select(., starts_with('ra'))
+
+## let's select variables using ends_with() helper function
+df %>% select(., ends_with('e'))
+
+## let's select variables using contains() helper function
+df %>% select(., contains('temp'))
+
+## let's select variables using num_range() helper function
+df %>% select(., num_range('temp', 0:5))
+```
+
 ## Summarizing data with dplyr
 ```{r}
 ## lets taking a simple count of the dataframe
@@ -210,11 +225,31 @@ df %>%
     .groups = 'drop'
   )
 
-## here we are using a cousin of the summarise function called summarise_at() which allows us to easily summarise many columns at once, with a list of functions
+## here we are using a across which allows us to easily summarise many columns at once, with a list of functions
 
 df %>%
   group_by(., treat, death) %>%
-  summarise(across(c(temp0:temp15), mean, na.rm = T),
-            .groups = 'drop')
+  summarise(across(
+    c(temp0:temp15),
+    list('mean' = mean, 'sd' = sd),
+    na.rm = T,
+    .names = '{.fn}_{.col}'
+  ),
+  .groups = 'drop')
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
